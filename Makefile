@@ -1,6 +1,6 @@
 NAME = libft.a
 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -c
 
 SRC_FT_PUT = ft_putchar.c ft_putchar_fd.c \
  ft_putstr.c ft_putstr_fd.c \
@@ -45,6 +45,8 @@ ft_lstmap.c \
 
 SRC_FT_ADD = ft_count.c ft_count_words.c ft_count_letters.c ft_is_space.c \
 
+SRCS = $(SRC_FT_PUT) $(SRC_FT_STR) $(SRC_FT_IS) $(SRC_FT_MEM) $(SRC_FT_MALLOC) $(SRC_FT_F) $(SRC_FT_LST) $(SRC_FT_ADD) 
+
 HEADER = -I libft.h
 
 OBJECTS = ft_putchar.o ft_putchar_fd.o \
@@ -83,19 +85,18 @@ OBJECTS = ft_putchar.o ft_putchar_fd.o \
  ft_strsplit.o \
  ft_count.o ft_count_words.o ft_count_letters.o ft_is_space.o \
 
-$(OBJECTS):
-	gcc -c $(SRC_FT_PUT) $(SRC_FT_STR) $(SRC_FT_IS) $(SRC_FT_MEM) $(SRC_FT_MALLOC) $(SRC_FT_F) $(SRC_FT_LST) $(SRC_FT_ADD) $(HEADER) $(FLAGS)
-
-$(NAME): $(OBJECTS)
-	ar rcs $(NAME) $(OBJECTS)
+$(NAME): 
+	@gcc $(FLAGS) $(SRCS) $(HEADER)
+	@ar rc $(NAME) $(OBJECTS) 
+	@ranlib $(NAME)
 
 all: $(NAME)
 
 clean:
-	/bin/rm -f $(OBJECTS)
+	@/bin/rm -f $(OBJECTS)
 
 fclean: clean
-	/bin/rm -f $(NAME)
+	@/bin/rm -f $(NAME) 
 
 re: fclean all
 
